@@ -1,0 +1,44 @@
+Project #1 Log
+
+Step 1) Calculate how much memory is needed to read in the full data set:
+* Option 1: calculate expected memory needed
+** Estimate of total size will assume 8bytes per item as an average times (2,075,259 * 9). For a total size of 150MB
+
+* Option 2: load the dataset and check the memory usage
+** z<-read.table("household_power_consumption.txt", header=T, sep=";")
+** object_size(z)
+** z is 83.6MB. So I conclude that the average item size is smaller than 8bytes
+
+* Option 3: load the needed subset only
+** relevant data starts on row 66638
+** z<-read.table("household_power_consumption.txt", header=T, sep=";", skip=66636, nrows=2880)
+
+q<-c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
+
+z<-read.table("household_power_consumption.txt", header=T, sep=";", skip=66636, nrows=2880, col.names=q, colClasses=c("character", "character", rep("numeric",7)))
+
+z$DT <- paste(z$Date, z$Time, sep=" ")
+
+z$final <- strptime(z[,10], "%d/%m/%Y %H:%M:%S")
+
+plot(z$final, z$Global_active_power, type="l")
+
+
+** > object_size(z)
+279kB
+
+Step 2) Clean data
+* convert date to R date class
+z$newc <- paste(z$Date, z$Time, sep=" ")
+strptime(z[,10], "%d/%m/%Y %H:%M:%S")
+
+as.Date(z[2,1], "%d/%m/%Y")
+
+** current class:sapply(z,class) shows that date and time are factors
+** let's use libridate
+** library(lubridate)
+
+Chart 1
+hist(z$Global_active_power, main = "Global Active Power", col="red", xlab="Global Active Power (kilowatts)")
+
+Chart 2
