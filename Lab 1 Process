@@ -1,4 +1,4 @@
-Project #1 Log
+Project #1 Logs
 
 Step 1) Calculate how much memory is needed to read in the full data set:
 * Option 1: calculate expected memory needed
@@ -13,12 +13,11 @@ Step 1) Calculate how much memory is needed to read in the full data set:
 ** relevant data starts on row 66638
 ** z<-read.table("household_power_consumption.txt", header=T, sep=";", skip=66636, nrows=2880)
 
-q<-c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
+col.name.data<-c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
 
-z<-read.table("household_power_consumption.txt", header=T, sep=";", skip=66636, nrows=2880, col.names=q, colClasses=c("character", "character", rep("numeric",7)))
+z<-read.table("household_power_consumption.txt", header=T, sep=";", skip=66636, nrows=2880, col.names=col.name.data, colClasses=c("character", "character", rep("numeric",7)))
 
 z$DT <- paste(z$Date, z$Time, sep=" ")
-
 z$final <- strptime(z[,10], "%d/%m/%Y %H:%M:%S")
 
 plot(z$final, z$Global_active_power, type="l")
@@ -40,5 +39,40 @@ as.Date(z[2,1], "%d/%m/%Y")
 
 Chart 1
 hist(z$Global_active_power, main = "Global Active Power", col="red", xlab="Global Active Power (kilowatts)")
+dev.copy(png, file="plot1.png", width = 480, height = 480, units = "px")
+dev.off()
 
 Chart 2
+plot(z$final, z$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+dev.copy(png, file="plot2.png", width = 480, height = 480, units = "px")
+dev.off()
+
+
+Chart 3
+plot(z$final, z$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
+lines(z$final, z$Sub_metering_2, col="red")
+lines(z$final, z$Sub_metering_3, col="blue")
+legend("topright", lty=c(1,1),col=c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+dev.copy(png, file="plot3.png", width = 480, height = 480, units = "px")
+dev.off()
+
+
+Chart 4
+par(mfrow=c(2,2))
+with(z,{
+plot(z$final, z$Global_active_power, type="l", xlab="", ylab="Global Active Power")
+plot(z$final, z$Voltage, type="l", xlab="datetime", ylab="Voltage")
+plot(z$final, z$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
+lines(z$final, z$Sub_metering_2, col="red")
+lines(z$final, z$Sub_metering_3, col="blue")
+legend("topright", lty=1,col=c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),bg = "transparent", box.col = "transparent", cex = 0.65)
+plot(z$final, z$Global_reactive_power, type="l", xlab="datetime", ylab="Global_reactive_power")
+}
+)
+dev.copy(png, file="plot4.png", width = 480, height = 480, units = "px")
+dev.off()
+
+
+
+
+
