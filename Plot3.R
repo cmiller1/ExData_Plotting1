@@ -1,4 +1,4 @@
-##Exploratory Data Analysis - Course Projects
+##Exploratory Data Analysis - Course Project
 ##Step 1 - Setting up a matrix of column variables
 col.name.data<-c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
 

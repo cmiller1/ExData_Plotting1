@@ -1,4 +1,4 @@
-##Exploratory Data Analysis - Course Projects
+##Exploratory Data Analysis - Course Project
 ##Step 1 - Setting up a matrix of column variables
 col.name.data<-c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
 
@@ -17,7 +17,7 @@ with(z,{
   plot(z$final, z$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
   lines(z$final, z$Sub_metering_2, col="red")
   lines(z$final, z$Sub_metering_3, col="blue")
-  legend("topright", lty=1,col=c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),bg = "transparent", box.col = "transparent", cex = 0.55)
+  legend("topright", lty=1,col=c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),bg = "transparent", box.col = "transparent", cex = 0.45)
   plot(z$final, z$Global_reactive_power, type="l", xlab="datetime", ylab="Global_reactive_power")
 }
 )
