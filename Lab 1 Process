@@ -1,4 +1,4 @@
-Project #1 Logs
+Project #1 Log
 
 Step 1) Calculate how much memory is needed to read in the full data set:
 * Option 1: calculate expected memory needed
@@ -71,8 +71,3 @@ plot(z$final, z$Global_reactive_power, type="l", xlab="datetime", ylab="Global_r
 )
 dev.copy(png, file="plot4.png", width = 480, height = 480, units = "px")
 dev.off()
-
-
-
-
-
